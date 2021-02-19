@@ -38,6 +38,15 @@ def clean_data(dataset, relevantcolumns):
             cleandata[x].append(dataset[x][i])
     return cleandata
 
+def clean_test_data(dataset, relevantcolumns):
+    cleantestdata = dict()
+    for x in range(len(dataset)):
+        cleantestdata[x] = list()
+        for i in relevantcolumns:
+            if(dataset[x][i] == 97 or dataset[x][i] == 98 or dataset[x][i] == 99 and i != 7):
+                cleantestdata[x].append(1.5)
+            cleantestdata[x].append(dataset[x][i])
+    return cleantestdata
 
 def split_posneg(dataset): #0 is for negative cases 1 is for positive cases
     split = dict()
@@ -112,8 +121,8 @@ filename = 'covid_train.csv'
 dataset = load_dataset(filename, relevantcolumns)
 splitdata = split_posneg(dataset)
 cleandata = clean_data(dataset, relevantcolumns)
-for i in range(10):
-    print(cleandata[i])
+#for i in range(10):
+#    print(cleandata[i])
 #for i in range(10):
 #    print(dataset[i])
 #for i in range(10):
@@ -125,5 +134,14 @@ posnegstats = posneg_stats(dataset, relevantcolumns)
 #print(posnegstats[0][1])
 #print(posnegstats[0][1][2])
 #print(posnegstats[1])
-probabilities = calculate_class_probabilities(posnegstats, cleandata[0], relevantcolumns)
-print(probabilities)
+#probabilities = calculate_class_probabilities(posnegstats, cleandata[0], relevantcolumns)
+#print(probabilities)
+
+testset = load_dataset('covid_valid.csv', relevantcolumns)
+cleantestset = clean_test_data(testset, relevantcolumns)
+for i in range(len(cleantestset)):
+    probabilities = calculate_class_probabilities(posnegstats, cleantestset[i], relevantcolumns)
+    if(probabilities[0] > probabilities[1]):
+        print("0")
+    else:
+        print("1")
