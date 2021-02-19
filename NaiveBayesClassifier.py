@@ -119,16 +119,11 @@ for i in range(10):
 #for i in range(10):
 #    print(splitdata[1][i][4])
 
-
-data = [1,2,3,4,5,6,7,8]
-average, standarddev = stats(data)
-print(average)
-print(standarddev)
 datastats = dataset_stats(dataset, relevantcolumns)
 posnegstats = posneg_stats(dataset, relevantcolumns)
 #print(posnegstats[0])
 #print(posnegstats[0][1])
 #print(posnegstats[0][1][2])
 #print(posnegstats[1])
-#probabilities = calculate_class_probabilities(posnegstats, dataset[0], relevantcolumns)
-#print(probabilities)
+probabilities = calculate_class_probabilities(posnegstats, cleandata[0], relevantcolumns)
+print(probabilities)
