@@ -31,10 +31,11 @@ def load_dataset(filename, relevantcolumns):
     return dataset
 
 def clean_data(dataset, relevantcolumns):
-    cleandata = list()
+    cleandata = dict()
     for x in range(len(dataset)):
+        cleandata[x] = list()
         for i in relevantcolumns:
-            cleandata[x].append(dataset[relevantcolumns])
+            cleandata[x].append(dataset[x][i])
     return cleandata
 
 
@@ -110,6 +111,9 @@ relevantcolumns = [6, 7, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 20]
 filename = 'covid_train.csv'
 dataset = load_dataset(filename, relevantcolumns)
 splitdata = split_posneg(dataset)
+cleandata = clean_data(dataset, relevantcolumns)
+for i in range(10):
+    print(cleandata[i])
 #for i in range(10):
 #    print(dataset[i])
 #for i in range(10):
@@ -126,5 +130,5 @@ posnegstats = posneg_stats(dataset, relevantcolumns)
 #print(posnegstats[0][1])
 #print(posnegstats[0][1][2])
 #print(posnegstats[1])
-probabilities = calculate_class_probabilities(posnegstats, dataset[0], relevantcolumns)
-print(probabilities)
+#probabilities = calculate_class_probabilities(posnegstats, dataset[0], relevantcolumns)
+#print(probabilities)
