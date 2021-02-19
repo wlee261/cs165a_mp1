@@ -30,6 +30,14 @@ def load_dataset(filename, relevantcolumns):
             dataset.append(row)
     return dataset
 
+def clean_data(dataset, relevantcolumns):
+    cleandata = list()
+    for x in range(len(dataset)):
+        for i in relevantcolumns:
+            cleandata[x].append(dataset[relevantcolumns])
+    return cleandata
+
+
 def split_posneg(dataset): #0 is for negative cases 1 is for positive cases
     split = dict()
     split[0] = list()
